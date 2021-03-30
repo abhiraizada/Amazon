@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Product from "./Product";
+import Product1 from "./Product1";
+import Test from "./Test";
+import { db } from "./firebase";
 
 function Home() {
+  const [products, setProducts] = useState([]);
+
+  const getProducts = () => {
+    db.collection("products").onSnapshot((snapshot) => {
+      let tempProducts = [];
+
+      tempProducts = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        product: doc.data(),
+      }));
+      setProducts(tempProducts);
+    });
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  console.log(products);
   return (
     <Container>
       <Banner></Banner>
+      {/* <Test1>ojsbjbd</Test1> */}
+      {/* <Product1 price="777" /> */}
       <Content>
-        <Product></Product>
-        <Product></Product>
+        {products.map((data) => (
+          <Product
+            title={data.product.name}
+            price={data.product.price}
+            rating={data.product.rating}
+            image={data.product.image}
+          />
+        ))}
       </Content>
     </Container>
   );
@@ -31,7 +61,8 @@ const Banner = styled.div`
 `;
 
 const Content = styled.div`
-  background: white;
   margin-top: -350px;
   display: flex;
 `;
+
+const Test1 = styled.div``;

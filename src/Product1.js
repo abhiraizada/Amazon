@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import ipad from "./Ipad.png";
 
-function Product(props) {
-  console.log("inside Product main");
+function Product1(props) {
+  console.log("inside productone");
   return (
     <Container>
-      <Title>{props.title}</Title>
-      <Price>${props.price}</Price>
+      <Title>Ipad Pro</Title>
+      <Price>{props.price}</Price>
       <Rating>⭐⭐⭐⭐⭐</Rating>
-      <Image src={props.image}></Image>
+      <Image src={ipad}></Image>
       <ActionSection>
         <AddToCartButton>Add to Cart</AddToCartButton>
       </ActionSection>
@@ -17,7 +17,7 @@ function Product(props) {
   );
 }
 
-export default Product;
+export default Product1;
 
 const Container = styled.div`
   background-color: white;
