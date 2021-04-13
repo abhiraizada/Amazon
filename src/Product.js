@@ -1,15 +1,41 @@
 import React from "react";
 import styled from "styled-components";
 import ipad from "./Ipad.png";
+import { db } from "./firebase";
+import CartItems from "./CartItems";
 
-function Product(props) {
-  console.log("inside Product main");
+function Product({ title, price, rating, image, id }) {
+  const addToCart = () => {
+    const cartItem = db.collection("cartItems").doc(id);
+    cartItem.get().then((doc) => {
+      console.log(doc);
+      if (doc.exists) {
+        cartItem.update({
+          quantity: doc.data().quantity + 1,
+        });
+      } else {
+        db.collection("cartItems").doc(id).set({
+          name: title,
+          image: image,
+          price: price,
+          quantity: 1,
+        });
+      }
+    });
+  };
+
   return (
     <Container>
-      <Title>{props.title}</Title>
-      <Price>${props.price}</Price>
-      <Rating>⭐⭐⭐⭐⭐</Rating>
-      <Image src={props.image}></Image>
+      <Title>{title}</Title>
+      <Price>${price}</Price>
+      <Rating>
+        {Array(rating)
+          .fill()
+          .map((rating) => {
+            return <p>⭐</p>;
+          })}
+      </Rating>
+      <Image src={image}></Image>
       <ActionSection>
         <AddToCartButton>Add to Cart</AddToCartButton>
       </ActionSection>
@@ -34,7 +60,9 @@ const Price = styled.span`
   font-weight: 500;
   margin-top: 3px;
 `;
-const Rating = styled.div``;
+const Rating = styled.div`
+  display: flex;
+`;
 const Image = styled.img`
   max-height: 200px;
   object-fit: contain;
