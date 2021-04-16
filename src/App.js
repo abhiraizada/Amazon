@@ -6,8 +6,11 @@ import Cart from "./Cart";
 import Home from "./Home";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { db } from "./firebase";
+import Login from "./Login";
+
 function App() {
   const [cartItems, setCartItems] = useState([]);
+  const [user, setUser] = useState({});
 
   const getCartItems = () => {
     db.collection("cartItems").onSnapshot((snapshot) => {
@@ -26,8 +29,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Header cartItems={cartItems} />
         <Switch>
+          <Route path="/login">
+            <Login setUser={setUser} />
+          </Route>
           <Route path="/cart">
             <Cart cartItems={cartItems} />
           </Route>
