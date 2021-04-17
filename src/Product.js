@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ipad from "./Ipad.png";
 import { db } from "./firebase";
-import CartItems from "./CartItems";
 
 function Product({ title, price, rating, image, id }) {
   const addToCart = () => {

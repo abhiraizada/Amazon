@@ -33,7 +33,7 @@ export default Cart;
 
 const Container = styled.div`
   display: flex;
-  //TRouble
+  //TRouBLe
   padding: 14px 18px 0px 18px;
   align-items: flex-start;
 `;

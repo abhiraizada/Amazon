@@ -4,24 +4,56 @@ import amazonlogo from "./amazon-logo.png";
 import { auth, provider } from "./firebase";
 
 function Login({ setUser }) {
-  const signIn = () => {
+  // const signIn = () => {
+  //   auth
+  //     .signInWithPopup(provider)
+  //     .then((result) => {
+  //       let user = result.user;
+  //       let newUser = {
+  //         name: user.displayName,
+  //         email: user.email,
+  //         photo: user.photoURL,
+  //       };
+  //       // console.log(JSON.stringify(newUser));
+  //       // localStorage.setItem("user", JSON.stringify(newUser));
+  //       setUser(newUser);
+  //     })
+  //     .catch((error) => {
+  //       alert(error.message);
+  //     });
+  // };
+
+  const signIn1 = () => {
+    alert("hiha");
     auth
       .signInWithPopup(provider)
       .then((result) => {
-        let user = result.user;
-        let newUser = {
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-        };
-        console.log(user);
-        console.log(newUser);
+        alert("ok");
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
+
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
       })
       .catch((error) => {
-        alert(error.message);
+        // Handle Errors here.
+        alert(error);
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
       });
   };
 
+  const signIn = () => {
+    auth.signInWithRedirect(provider);
+  };
   return (
     <Container>
       <Content>
@@ -58,7 +90,7 @@ const LoginButton = styled.button`
   margin-top: 50px;
   background-color: #f0c14b;
   height: 40px;
-  border: 2px solid #88734;
+  border: 2px solid #a88734;
   border-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;

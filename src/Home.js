@@ -26,8 +26,6 @@ function Home() {
   return (
     <Container>
       <Banner></Banner>
-      {/* <Test1>ojsbjbd</Test1> */}
-      {/* <Product1 price="777" /> */}
       <Content>
         {products.map((data) => (
           <Product
